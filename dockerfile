@@ -3,13 +3,17 @@ FROM debian:latest
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install basic
-RUN apt-get update && apt-get install -y ssh git vim locales python-apt
+RUN apt-get update && apt-get install -y ssh git vim locales python-apt tree psmisc
 RUN apt-get upgrade -y
 
 # Apt config for ansible
 RUN echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" > /etc/apt/sources.list.d/ansible.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
 RUN apt-get update && apt-get install -y ansible
+
+# Locales config
+RUN echo "en_US.UTF-8 UTF-8\nfr_FR.UTF-8 UTF-8" > /etc/locale.gen
+RUN locale-gen
 
 # VIM config
 RUN sed -i 's/\"syntax on/syntax on/g' /etc/vim/vimrc
