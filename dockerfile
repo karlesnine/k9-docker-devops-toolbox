@@ -3,7 +3,7 @@ FROM debian:latest
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install basic
-RUN apt-get update && apt-get install -y ssh git vim locales python-apt tree psmisc
+RUN apt-get update && apt-get install -y ssh progress git vim locales python-apt python-pip python-dnspython dnsutils tree psmisc
 RUN apt-get upgrade -y
 
 # Apt config for ansible
