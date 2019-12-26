@@ -1,18 +1,21 @@
-# Ansible docker dev container
 
-### Local host stuff
 
-- Git clone the ansible code: `git clone git@YOURBUCKET:YOURREPO/ansible.git ./`
-- Change the *id_rsa.pub* ssh key by your own
+# Getting started
 
-### Docker stuff
-To build the container : `docker build -t IMAGENAME -f dockerfile ./`
+Just copy `run.sh` and run it.
+Finished, you now log in your container by SSH using your key:
+- `ssh -A -p 8001 root@localhost`
 
-To run the container on OSX:
+Everything is normally configured
 
-- Modfify for *user.email* and *user.name* git option
-- Run `docker run --hostname=ansible --dns=192.168.0.2 -v /Users/LOGIN/Documents/git/ansible:/etc/ansible -p 8000:22 -d -P --name CONTAINERNAME IMAGENAME`
-
-To login into container by ssh :
-
-- `ssh -p 8000 root@localhost`
+# Installed software
+- ansible (v2.8.7)
+- terraform (v0.12.16)
+- tfswitch (latest)
+- python (2.7.13)
+- python3 (3.5.3)
+- pip (9.0.1)
+- PyMySQL (latest)
+- ansible-modules-hashivault (latest)
+- requests (latest)
+- awscli (latest)
