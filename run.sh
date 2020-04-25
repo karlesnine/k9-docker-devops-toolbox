@@ -1,6 +1,4 @@
 #!/bin/bash
-echo "Enter the ip of your dns [ENTER]:"
-read dnsIp
 echo "Enter the path of your ansible folder, followed by [ENTER]:"
 read ansiblePath
 echo "Enter the path of your terraform folder, followed by [ENTER]:"
@@ -17,13 +15,21 @@ then
     listenPort=8001
 fi
 
-docker build -t docker-devops-toolbox ./
-
-docker run --hostname=dev --dns=$dnsIp \
+if [ "$(uname)" == "Darwin" ]; then
+  docker run --hostname=dev --dns=192.168.136.7 \
+	-v $ansiblePath:/etc/ansible:delegated \
+	-v $terraformPath:/etc/terraform:delegated \
+	-v $HOME/.aws:/root/.aws \
+	-p $listenPort:22 -d -P --name devops-toolbox gitlab.vestiairecollective.com:4567/tools/docker-devops-toolbox:latest
+else
+  docker run --hostname=dev --dns=192.168.136.7 \
 	-v $ansiblePath:/etc/ansible \
 	-v $terraformPath:/etc/terraform \
 	-v $HOME/.aws:/root/.aws \
-	-p $listenPort:22 -d -P --name docker-devops-toolbox
+	-p $listenPort:22 -d -P --name devops-toolbox gitlab.vestiairecollective.com:4567/tools/docker-devops-toolbox:latest
+fi
+	#statements
+
 
 if [ ! -z "$sshPubKey" ]
 then
