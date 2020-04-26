@@ -19,7 +19,7 @@ jobs:
       - name: Build
         run: docker image build --force-rm --pull -t docker-devops-toolbox:latest .
       - name: Last Tag
-	run: echo ::set-env name=LAST_TAG::$(git describe --abbrev=0 --tags)
+        run: echo ::set-env name=LAST_TAG::$(git describe --abbrev=0 --tags)
       - name: Tags
         run: |
           docker tag docker-devops-toolbox ${{ secrets.DOCKER_USER }}/docker-devops-toolbox:${{env.LAST_TAG}}
