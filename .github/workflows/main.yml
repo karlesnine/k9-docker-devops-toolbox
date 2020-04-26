@@ -1,0 +1,29 @@
+name: Devops Toolbox CI/CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+    needs: ci
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Docker login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build
+        run: docker image build --force-rm --pull -t docker-devops-toolbox:latest .
+      - name: Tags
+        run: |
+          docker tag back ${{ secrets.DOCKER_USER }}/docker-devops-toolbox:${{ github.sha }}
+          docker tag back ${{ secrets.DOCKER_USER }}/docker-devops-toolbox:latest
+      - name: Push
+        run: |
+          docker push ${{ secrets.DOCKER_USER }}/docker-devops-toolbox:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USER }}/docker-devops-toolbox:latest
