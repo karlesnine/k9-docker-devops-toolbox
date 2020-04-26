@@ -23,4 +23,3 @@ Everything is normally configured
 # After first ssh loggin run
 - `aws configure`
 - `for CLUSTER in $(aws eks list-clusters | cut -f2 -d$'\t'); do aws eks --region eu-west-1 update-kubeconfig --name $CLUSTER; done`
-
