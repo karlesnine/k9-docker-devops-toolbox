@@ -20,9 +20,10 @@ jobs:
         run: docker image build --force-rm --pull -t docker-devops-toolbox:latest .
       - name: Tags
         run: |
-          docker tag back ${{ secrets.DOCKER_USER }}/docker-devops-toolbox:${{ github.sha }}
+	  LAST_TAG=$(git describe --abbrev=0 --tags)
+          docker tag back ${{ secrets.DOCKER_USER }}/docker-devops-toolbox:$LAST_TAG
           docker tag back ${{ secrets.DOCKER_USER }}/docker-devops-toolbox:latest
       - name: Push
         run: |
-          docker push ${{ secrets.DOCKER_USER }}/docker-devops-toolbox:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USER }}/docker-devops-toolbox:$LAST_TAG
           docker push ${{ secrets.DOCKER_USER }}/docker-devops-toolbox:latest
