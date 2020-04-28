@@ -1,3 +1,7 @@
+
+# Status
+![Devops Toolbox CI/CD](https://github.com/karlesnine/docker-devops-toolbox/workflows/Devops%20Toolbox%20CI/CD/badge.svg)
+
 # Getting started
 
 Just copy `run.sh` and run it.
