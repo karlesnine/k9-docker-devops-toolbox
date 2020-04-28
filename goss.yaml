@@ -35,7 +35,7 @@ package:
   apt-transport-https:
     installed: true
     versions:
-    - 1.8.2
+    - 1.8.1
   apt-utils:
     installed: true
     versions:
