@@ -1,0 +1,57 @@
+file:
+  /root/.bashrc:
+    exists: true
+    mode: "0600"
+    size: 3157
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /root/.ssh/authorized_keys:
+    exists: true
+    mode: "0600"
+    size: 747
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /root/.ssh/id_rsa.pub:
+    exists: true
+    mode: "0755"
+    size: 747
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /usr/local/bin/helm:
+    exists: true
+    mode: "0755"
+    size: 41819776
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+package:
+  apt-transport-https:
+    installed: true
+    versions:
+    - 1.8.2
+  apt-utils:
+    installed: true
+    versions:
+    - 1.8.2
+  git:
+    installed: true
+    versions:
+    - 1:2.20.1-2+deb10u3
+  openssh-server:
+    installed: true
+    versions:
+    - 1:7.9p1-10+deb10u2
+  ssh:
+    installed: true
+    versions:
+    - 1:7.9p1-10+deb10u2
+process:
+  sshd:
+    running: true

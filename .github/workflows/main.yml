@@ -1,0 +1,37 @@
+name: Devops Toolbox CI/CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Last Tag
+        run: | 
+          echo "::set-env name=LAST_TAG::$(git describe --abbrev=0 --tags)"
+          echo "::set-env name=IMAGE_NAME::$(basename $(pwd))"
+          echo "${{ env.LAST_TAG }}"
+      - name: Docker login
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Show
+        run: |
+          echo "LAST_TAG is ${{ env.LAST_TAG }}"
+          echo "IMAGE_NAME is ${{ env.IMAGE_NAME }}"
+      - name: Build
+        run: docker image build --force-rm --pull -t ${{ env.IMAGE_NAME }}:latest . 
+      - name: Tags
+        run: |
+          docker tag hello ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.LAST_TAG }}
+          docker tag hello ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+      - name: Push
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.LAST_TAG }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest

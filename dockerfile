@@ -15,6 +15,10 @@ RUN apt-get update && \
     ruby && \
     apt-get upgrade -y
 
+# Install Goss
+# https://github.com/aelsabbahy/goss
+RUN curl -fsSL https://goss.rocks/install | sh
+
 # Install APT repository for kubectl
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
