@@ -13,7 +13,7 @@ Everything is normally configured
 # Installed software
 - helm 2.14.3
 - ansible (v2.8.7)
-- terraform (v0.12.24)
+- terraform (v0.12.29)
 - kubctl (lastest)
 - tfswitch (latest)
 - python (2.7.13)
