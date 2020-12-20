@@ -11,9 +11,12 @@ RUN apt-get update && \
     sudo curl jq progress git vim \
     locales gnupg dnsutils tree psmisc groff \
     mariadb-client \
-    python-apt python-pip python-dnspython python-botocore python-boto3 python-boto \
+    python3-apt python3-pip python3-dnspython python3-botocore python-boto3\
     ruby && \
     apt-get upgrade -y
+
+# Force Python3
+RUN /usr/bin/update-alternatives --install /usr/bin/python python /usr/bin/python3.7 1
 
 # Install APT repository for kubectl
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
@@ -39,23 +42,23 @@ RUN curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/rele
 RUN gem install terraforming
 
 # Installing dependencies for hashivault ansible plugin
-RUN pip install \
+RUN pip3 install \
     awscli \
-    ansible==2.8.7 \
+    ansible==2.10.4 \
     PyMySQL \
-    ansible-modules-hashivault \
+    ansible-modules-hashivault==4.6.2 \
     requests
 
 # Some directory configuration
-RUN mkdir -p /usr/lib/python2.7/dist-packages/ansible/modules && \
-    mkdir -p /usr/lib/python2.7/dist-packages/ansible/module_utils && \
+RUN mkdir -p /usr/lib/python3.7/dist-packages/ansible/modules && \
+    mkdir -p /usr/lib/python3.7/dist-packages/ansible/module_utils && \
     mkdir -p /root/.aws && \
     mkdir -p /etc/terraform && \
     mkdir -p /etc/ansible && \
     mkdir -p /var/run/sshd && \
     mkdir -p /root/.ssh && \
-    ln -s /usr/local/lib/python2.7/dist-packages/ansible/modules/hashivault /usr/lib/python2.7/dist-packages/ansible/modules/hashivault && \
-    ln -s /usr/local/lib/python2.7/dist-packages/ansible/module_utils/hashivault.py /usr/lib/python2.7/dist-packages/ansible/module_utils/hashivault.py
+    ln -s /usr/local/lib/python3.7/dist-packages/ansible/modules/hashivault /usr/lib/python3.7/dist-packages/ansible/modules/hashivault && \
+    ln -s /usr/local/lib/python3.7/dist-packages/ansible/module_utils/hashivault.py /usr/lib/python3.7/dist-packages/ansible/module_utils/hashivault.py
 
 # Clean & autoremove apt
 RUN apt-get autoremove --purge -y && apt-get clean
