@@ -1,9 +1,9 @@
 #!/bin/bash
 gitConfigName="karles"
 gitConfigMail="karles@karlesnine"
-ImageName="karlesnine/docker-devops-toolbox-k9"
-ContainerName="docker-devops-toolbox-k9"
-ansiblePath="/Users/charles-christian.cr/Documents/git_externe/ansible-k9"
-terraformPath="/Users/charles-christian.cr/Documents/git_externe/terraform-k9"
+ImageName="karlesnine/k9-docker-devops-toolbox"
+ContainerName="toolbox-docker1"
+ansiblePath="/Users/karles/Documents/git_perso/k9-ansible-docker1"
+terraformPath="/Users/karles/Documents/git_perso/k9-terraform-lab-ubuntu"
 sshPubKey=""
 listenPort=""

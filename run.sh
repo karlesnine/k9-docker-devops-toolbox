@@ -31,10 +31,10 @@ fi
 
 if [ ! -z "$gitConfigName" ]
 then
-	docker exec -it devops-toolbox git config --global user.name $gitConfigName
+	docker exec -it $ContainerName git config --global user.name $gitConfigName
 fi
 
 if [ ! -z "$gitConfigMail" ]
 then
-	docker exec -it devops-toolbox git config --global user.email $gitConfigMail
+	docker exec -it $ContainerName git config --global user.email $gitConfigMail
 fi
