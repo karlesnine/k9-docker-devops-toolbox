@@ -27,8 +27,8 @@ jobs:
         run: | 
           LAST_TAG_ENV=$(git describe --tags `git rev-list --tags --max-count=1`)
           IMAGE_NAME_ENV=$(basename $(pwd))
-          echo $LAST_TAG_ENV"
-          echo $IMAGE_NAME_ENV"
+          echo $LAST_TAG_ENV
+          echo $IMAGE_NAME_ENV
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Show
