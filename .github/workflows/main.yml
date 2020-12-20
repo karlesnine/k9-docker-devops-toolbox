@@ -27,21 +27,21 @@ jobs:
         run: | 
           echo $(git describe --tags `git rev-list --tags --max-count=1`) >> $LAST_TAG_ENV
           echo $(basename $(pwd)) >> $IMAGE_NAME_ENV
-          echo "${{ LAST_TAG_ENV }}"
-          echo "${{ IMAGE_NAME_ENV }}"
+          echo $LAST_TAG_ENV"
+          echo $IMAGE_NAME_ENV"
       - name: Docker login
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Show
         run: |
-          echo "LAST_TAG is ${{ LAST_TAG_ENV }}"
-          echo "IMAGE_NAME is ${{ IMAGE_NAME_ENV }}"
+          echo "LAST_TAG is $LAST_TAG_ENV"
+          echo "IMAGE_NAME is IMAGE_NAME_ENV"
       - name: Build
-        run: docker image build --force-rm --pull -t ${{ IMAGE_NAME_ENV }} . 
+        run: docker image build --force-rm --pull -t $IMAGE_NAME_ENV . 
       - name: Tags
         run: |
-          docker tag ${{ IMAGE_NAME_ENV }} ${{ secrets.DOCKER_USERNAME }}/${{ IMAGE_NAME_ENV }}:${{ LAST_TAG_ENV }}
-          docker tag ${{ IMAGE_NAME_ENV }} ${{ secrets.DOCKER_USERNAME }}/${{ IMAGE_NAME_ENV }}:latest
+          docker tag $IMAGE_NAME_ENV ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME_ENV:$LAST_TAG_ENV
+          docker tag $IMAGE_NAME_ENV ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME_ENV:latest
       - name: Push
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ IMAGE_NAME_ENV }}:${{ LAST_TAG_ENV }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/${{ IMAGE_NAME_ENV }}:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME_ENV:$LAST_TAG_ENV
+          docker push ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME_ENV:latest
